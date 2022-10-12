@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Egeez" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="android:statusBarColor">@color/primaryColor</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="SplashTheme" parent="Theme.SplashScreen">
+<item name="windowSplashScreenBackground">@color/primaryColor</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/egeez_logo_square</item>
+        <item name="windowSplashScreenAnimationDuration">600</item>
+        <item name="postSplashScreenTheme">@style/Theme.Egeez</item>
+    </style>
+</resources>

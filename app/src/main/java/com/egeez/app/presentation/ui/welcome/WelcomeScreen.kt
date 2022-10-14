@@ -9,6 +9,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavHostController
@@ -20,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.egeez.app.presentation.theme.AeonikTypography
 import com.egeez.app.presentation.ui.login.LoginScreen
-import com.egeez.app.presentation.ui.login.SignUpScreen
-import com.egeez.app.presentation.ui.signup.SignUpViewModel
+import com.egeez.app.presentation.ui.signup.SignUpScreen
+import com.egeez.app.presentation.ui.signup.SignUpFormViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -30,21 +31,28 @@ fun WelcomeScreen(
 
     navController: NavHostController,
     //welcomeViewModel: WelcomeViewModel = hiltViewModel()
-    signUpViewModel: SignUpViewModel
+
 ){
+    val signUpViewModel = SignUpFormViewModel()
     val image = painterResource(id = R.drawable.background)
     val sheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     val scope = rememberCoroutineScope()
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = sheetState
     )
+    val step = signUpViewModel.step.observeAsState()
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
         sheetShape = RoundedCornerShape(30.dp),
         sheetPeekHeight = 0.dp,
         modifier = Modifier.fillMaxSize(),
         sheetElevation = 2.dp,
-        sheetContent = { SignUpScreen(signUpViewModel) }) {
+        sheetContent = {
+            if(step.value==1)
+                SignUpScreen(signUpViewModel,navController)
+            else if(step.value==2)
+                LoginScreen()
+        }) {
         Box {
             Image(
                 modifier = Modifier.fillMaxSize(),
@@ -65,7 +73,9 @@ fun WelcomeScreen(
                     text = "Welcome!", color = Color.White, style = AeonikTypography.h1,
                     fontWeight = FontWeight.SemiBold, fontSize = 50.sp
                 )
-                Spacer(modifier = Modifier.fillMaxWidth().height(15.dp))
+                Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(15.dp))
                 Text(
                     text = "Welcome to Egeez! Experience \nmagic like you’ve never \nexperienced before!",
                     color = Color.White,
@@ -91,7 +101,9 @@ fun WelcomeScreen(
                             }
                         }
                     },
-                    modifier = Modifier.fillMaxWidth().height(45.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
                     shape = RoundedCornerShape(6.dp),
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color.White,
@@ -107,7 +119,9 @@ fun WelcomeScreen(
                 )
                 OutlinedButton(
                     onClick = { /*TODO*/ },
-                    modifier = Modifier.fillMaxWidth().height(45.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
                     shape = RoundedCornerShape(6.dp),
                     border = BorderStroke(1.dp, Color.White),
                     colors = ButtonDefaults.buttonColors(

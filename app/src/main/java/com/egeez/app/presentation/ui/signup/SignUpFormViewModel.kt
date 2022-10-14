@@ -7,16 +7,21 @@ import androidx.lifecycle.ViewModel
 import com.egeez.app.domain.models.SignUpFormData
 class SignUpFormViewModel : ViewModel() {
 
+    private var _step = MutableLiveData<Int>(1)
     private val _formData = MutableLiveData(SignUpFormData())
+
     val formData: LiveData<SignUpFormData>
         get() = _formData
-
+    val step: LiveData<Int>
+        get() = _step
     fun onClearClicked() {
         _formData.value = SignUpFormData()
     }
 
 
-
+    fun onNextClicked(){
+        _step.value = _step.value?.plus(1)
+    }
     fun onEmailChanged(email: String) {
         val isFormValid = _formData.value?.run {
             isFormValid(email, isValidEmail, username)

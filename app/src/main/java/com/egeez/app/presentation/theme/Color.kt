@@ -8,7 +8,7 @@ val White = Color(0xFFFFFFF)
 val SecondaryGrey = Color(0xFFA5ACAF)
 val SecondaryGreyVariantDark = Color(0xFF767d80)
 val Grey1 = Color(0xFFF2F2F2)
-
+val GreyBorder = Color(0xFFDEDEDE)
 val Black1 = Color(0xFF222222)
 val Black2 = Color(0xFF000000)
 

@@ -43,14 +43,14 @@ fun WelcomeScreen(
     val step = signUpViewModel.step.observeAsState()
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
-        sheetShape = RoundedCornerShape(30.dp),
+        sheetShape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
         sheetPeekHeight = 0.dp,
         modifier = Modifier.fillMaxSize(),
         sheetElevation = 2.dp,
         sheetContent = {
-            if(step.value==1)
+            if(step.value==2)
                 SignUpScreen(signUpViewModel,navController)
-            else if(step.value==2)
+            else if(step.value==1)
                 LoginScreen()
         }) {
         Box {

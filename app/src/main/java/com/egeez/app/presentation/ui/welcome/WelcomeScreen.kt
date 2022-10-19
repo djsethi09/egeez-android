@@ -48,7 +48,7 @@ fun WelcomeScreen(
         modifier = Modifier.fillMaxSize(),
         sheetElevation = 2.dp,
         sheetContent = {
-            if(step.value==2)
+            if(step.value==1)
                 SignUpScreen(signUpViewModel,navController)
             else if(step.value==1)
                 LoginScreen()
